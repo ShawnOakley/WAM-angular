@@ -1,0 +1,13 @@
+<body class="content" layout="row" ng-controller='GameController as gameCtrl' ng-cloak>
+  <section layout-fill layout="column">
+	  <div id="heading" class="row">
+	    <div class="scores-container">
+	      <div class="score-container">{{ gameCtrl.game.currentScore }}</div>
+	      <div class="best-container">{{ gameCtrl.game.highScore }}</div>
+	    </div>
+	  </div>
+     <div id="game-container" flex layout="row">TEST
+       <div grid ng-model="gameCtrl.game" flex layout-align="center center" margin></div>
+     </div>
+  </section>
+</body>
