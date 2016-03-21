@@ -19,6 +19,10 @@ angular.module('whackamoleApp')
   		}
   	};
 
+  	$scope.clearBestScore = function(){
+  		$scope.bestScore = 0;
+  	}
+
  	$scope.createSquare = function(position){
 		var gridSquare = {};
 		gridSquare.idx = position;
@@ -85,5 +89,4 @@ angular.module('whackamoleApp')
     	}, gameDuration);
     };
     $scope.generateBoard();
-    $scope.startGame(10000);
   }]);
