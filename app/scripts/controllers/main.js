@@ -11,6 +11,14 @@ angular.module('whackamoleApp')
   .controller('MainCtrl', ['$scope','$interval','$timeout',  function($scope, $interval, $timeout) {
 
   	$scope.score=0;
+  	$scope.bestScore = 0;
+
+  	$scope.calculateBestScore = function(){
+  		if ($scope.score > $scope.bestScore) {
+  			$scope.bestScore = $scope.score;
+  		}
+  	};
+
  	$scope.createSquare = function(position){
 		var gridSquare = {};
 		gridSquare.idx = position;
@@ -72,6 +80,8 @@ angular.module('whackamoleApp')
     	$timeout(function(){
     		$interval.cancel(popUpInterval);
     		$scope.targettedSquareIdx = null;
+    		$scope.calculateBestScore();
+    		$scope.score = 0;
     	}, gameDuration);
     };
     $scope.generateBoard();
