@@ -41,7 +41,6 @@ body {
 }
 
 .navbar-header{
-  background-color: #C8F7C5;
 }
 
 /* Custom page footer */
@@ -100,6 +99,7 @@ body {
 
 .grid-container {
   width:100%;
+  text-align:center;
 }
 
 .scores-container {
@@ -112,4 +112,9 @@ body {
     height:28%;
     width:28%;
     display:inline-block;
+}
+
+#game-btn-container {
+  text-align:center;
+  margin: 5px;
 }

@@ -1,25 +1,30 @@
 <body class="content" layout="row" ng-cloak>
   <section layout-fill layout="column">
-	  <div id="heading" class="row">
+	  <div id="heading" class="row text-center">
+	  	<div class="alert-container">
+	  		<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+	  	</div>
 	    <div class="scores-container">
-	      <div class="current-score-container">Score: {{score}}</div>
+	      <div class="current-score-container">Current Score: {{score}}</div>
 	      <div class="best-container">Best Score: {{bestScore}}</div>
 	    </div>
 	  </div>
-	  <div ng-if="!gameStarted" class="button-container">
-	  	<button ng-click="startGame(10000)">Start Short Game</button>
-	  	<button ng-click="startGame(20000)">Start Medium Game</button>
-	  	<button ng-click="startGame(30000)">Start Long Game</button>
-	  	<button ng-click="clearBestScore()">Clear Best Score</button>
-	  </div>
-	  <div ng-if="gameStarted" class="button-container">
-	  	<button ng-click="cancelGame()">Cancel Game</button>
-	  </div>
+	  <div class="text-center" id="btn-group-wrapper">
+		  <div ng-if="!gameStarted" class="btn-group" id="game-btn-container">
+		  	<button class="btn btn-primary" ng-click="startGame(10000)">Start Short Game</button>
+		  	<button class="btn btn-primary" ng-click="startGame(20000)">Start Medium Game</button>
+		  	<button class="btn btn-primary" ng-click="startGame(30000)">Start Long Game</button>
+		  	<button class="btn btn-primary btn-danger" ng-click="clearBestScore()">Clear Best Score</button>
+		  </div>
+		  <div ng-if="gameStarted" class="btn-group" id="game-btn-container">
+		  	<button ng-click="cancelGame()" class="btn btn-primary btn-danger">Cancel Game</button>
+		  </div>
+		</div>
      <div id="game-container" flex layout="row">
        <!-- <div grid ng-model=gameBoard flex layout-align="center center" margin></div> -->
 		  <div class="grid-container">
 		    <grid-square
-		      ng-repeat="cell in grid track by $index" cell="cell"></grid-square>
+		      ng-repeat="cell in grid track by $index" cell="cell" game-started="gameStarted"></grid-square>
 		  </div>
      </div>
   </section>

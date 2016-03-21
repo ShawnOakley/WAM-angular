@@ -5,7 +5,8 @@ angular.module('whackamoleApp')
 	return {
 		restrict: 'E',
 		scope: {
-			cell: '='
+			cell: '=',
+			gameStarted: '='
 		},
 		transclude:true,
 		templateUrl: 'scripts/grid/gridSquare.html',

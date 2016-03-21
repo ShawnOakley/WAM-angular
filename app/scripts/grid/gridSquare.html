@@ -1,9 +1,13 @@
 <div class="grid-cell" flex layout="row" layout-align="center center" class="box">
 <!-- Source of mole image: http://www.clipartbest.com/clipart-yckz5AocE -->
-<img ng-if="cell.transitioning && !cell.whacked" ng-click="handleWhack()" src="images/poof.jpg"></img>
+
+<!-- Gameflow related images -->
+<!-- ng-click checks for gameStarted boolean on scope to disable click reactions if game isn't running -->
+<img ng-if="cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/poof.jpg"></img>
+<img ng-if="!cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/circular-meadow.jpg"></img>
+<img ng-if="cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/mole.png"</img>
+
+<!-- Whack related images -->
 <img ng-if="cell.displayingMole && !cell.transitioning && cell.whacked" src="images/whack.png"></img>
 <img ng-if="!cell.displayingMole && cell.whacked" src="images/red-x.png"></img>
-
-<img ng-if="!cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="handleWhack()" src="images/circular-meadow.jpg"></img>
-<img ng-if="cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="handleWhack()" src="images/mole.png"</img>
 </div>
