@@ -2,9 +2,15 @@
   <section layout-fill layout="column">
 	  <div id="heading" class="row">
 	    <div class="scores-container">
-	      <div class="score-container">{{score}}</div>
-	      <div class="best-container"></div>
+	      <div class="score-container">Score: {{score}}</div>
+	      <div class="best-container">Best Score: {{bestScore}}</div>
 	    </div>
+	  </div>
+	  <div class="button-container">
+	  	<button ng-click="startGame(10000)">Start Short Game</button>
+	  	<button ng-click="startGame(20000)">Start Medium Game</button>
+	  	<button ng-click="startGame(30000)">Start Medium Game</button>
+	  	<button>Clear Best Score</button>
 	  </div>
      <div id="game-container" flex layout="row">
        <!-- <div grid ng-model=gameBoard flex layout-align="center center" margin></div> -->
