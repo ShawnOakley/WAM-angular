@@ -40,6 +40,10 @@ body {
   }
 }
 
+.navbar-header{
+  background-color: #C8F7C5;
+}
+
 /* Custom page footer */
 .footer {
   padding-top: 19px;
@@ -92,4 +96,16 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.grid-container {
+  width:100%;
+}
+
+.grid-cell {
+    border: 2px solid;
+    border-radius: 25px;
+    height:28%;
+    width:28%;
+    display:inline-block;
 }

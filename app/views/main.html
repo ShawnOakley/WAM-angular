@@ -1,13 +1,17 @@
-<body class="content" layout="row" ng-controller='GameController as gameCtrl' ng-cloak>
+<body class="content" layout="row" ng-cloak>
   <section layout-fill layout="column">
 	  <div id="heading" class="row">
 	    <div class="scores-container">
-	      <div class="score-container">{{ gameCtrl.game.currentScore }}</div>
-	      <div class="best-container">{{ gameCtrl.game.highScore }}</div>
+	      <div class="score-container">{{score}}</div>
+	      <div class="best-container"></div>
 	    </div>
 	  </div>
-     <div id="game-container" flex layout="row">TEST
-       <div grid ng-model="gameCtrl.game" flex layout-align="center center" margin></div>
+     <div id="game-container" flex layout="row">
+       <!-- <div grid ng-model=gameBoard flex layout-align="center center" margin></div> -->
+		  <div class="grid-container">
+		    <grid-square
+		      ng-repeat="cell in grid track by $index" cell="cell"></grid-square>
+		  </div>
      </div>
   </section>
 </body>

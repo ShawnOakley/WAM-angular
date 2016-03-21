@@ -17,6 +17,7 @@ angular
     'ngSanitize',
     'ngMaterial',
     'Game'
+    // 'GridSquareFactory'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -33,7 +34,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .controller('GameManager', function(GameManager){
-    this.game = GameManager;
   });

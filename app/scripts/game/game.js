@@ -8,6 +8,8 @@
 
 angular.module('Game', [])
 .service('GameManager', function() {
+	this.currentScore = 5;
+	this.highScore=10;
 	// Creates new game
 	this.newGame = function(){};
 	// Handles the mole appearance action
