@@ -43,23 +43,25 @@ angular.module('whackamoleApp')
     $scope.generateBoard = function() {
     	$scope.grid = [];
     	for (var i = 0; i<9; i++) {
-    			// Unfortunately need idx 
     			$scope.grid.push($scope.createSquare(i));
     	}
     };
 // https://stackoverflow.com/questions/14502006/working-with-scope-emit-and-on
     $scope.$on('whackClick', function(whackClickEvent, whackedSquarePosition){
-    	if (whackedSquarePosition === $scope.targettedSquareIdx) {
-    		$scope.score += 1;
-    	}
-    	$scope.grid[whackedSquarePosition].whacked=true;
-    	$timeout.cancel($scope.moleDisplayTimeout);
-    	$timeout(function(){
-    		for (var i = 0; i<$scope.grid.length; i++) {
-    			$scope.grid[i].transitioning=false;
+    	 $scope.grid[whackedSquarePosition].whacked=true;
+		 $timeout.cancel($scope.moleDisplayTimeout);
+		 $timeout(function(){
+	    	 _.each($scope.targettedSquares, function(squareIdx){
+
+		    	if (whackedSquarePosition === squareIdx) {
+		    		$scope.score += 1;
+		    	}
+	    	});
+	    	for (var i = 0; i<$scope.grid.length; i++) {
+		    	$scope.grid[i].transitioning=false;
 				$scope.grid[i].displayingMole=false;
 				$scope.grid[i].whacked=false;
-    		}
+			}
     	}, 250);
     });
 
@@ -94,8 +96,9 @@ angular.module('whackamoleApp')
     		var possibleSecondTargets = removeSelectedIndex($scope.targettedSquareIdx);
     		var secondTarget = generateSecondTargetedIndex(possibleSecondTargets);
     		$scope.targettedSquares.push(secondTarget);
-
-    		$scope.grid[$scope.targettedSquareIdx].transitioning = true;
+   			_.each($scope.targettedSquares, function(squareIdx){
+				$scope.grid[squareIdx].transitioning = true;
+			});
     		// Need to catch the timeouts on the scope to cancel it in case of a successful hit
     		$scope.moleDisplayTimeout = $timeout(function(){
     			_.each($scope.targettedSquares, function(squareIdx){
@@ -109,14 +112,12 @@ angular.module('whackamoleApp')
     				});
     				$scope.moleDisplayTimeout = $timeout(function(){
     					_.each($scope.targettedSquares, function(squareIdx){
+	    					$scope.grid[squareIdx].whacked = false;
 	    					$scope.grid[squareIdx].transitioning = false;
     					});
-    				}, 250);
+    					$scope.targettedSquares = [];
+    				}, 200);
     			},500);
-    		},250);
-    		$timeout(function(){
-    			$scope.grid[$scope.targettedSquareIdx].transitioning = false;
-    			$scope.grid[$scope.targettedSquareIdx].displayingMole = true;
     		},250);
     	}, 1000);
 
