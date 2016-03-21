@@ -14,10 +14,7 @@ angular.module('whackamoleApp')
   	$scope.bestScore = 0;
   	$scope.gameStarted=false;
 
-  $scope.alerts = [
-    { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-    { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-  ];
+  $scope.alerts = [];
 
   $scope.closeAlert = function(index) {
     $scope.alerts.splice(index, 1);
@@ -27,6 +24,12 @@ angular.module('whackamoleApp')
 		$interval.cancel($scope.popUpInterval);
 		$scope.targettedSquareIdx = null;
 		$scope.calculateBestScore();
+		$scope.closeAlert();
+		if ($scope.score < $scope.bestScore) {
+			$scope.alerts.push({ type: 'danger', msg: 'Game cancelled prematurely. Try again.  You need to get more than ' +  $scope.bestScore + ' points.'});
+		} else {
+			$scope.alerts.push({ type: 'success', msg: 'Even though you ended early, you got a new high score!  Your new record is ' +  $scope.bestScore + ' points.'});
+		}
 		$scope.gameStarted=false;
 		$scope.score = 0;
   	};
@@ -97,6 +100,11 @@ angular.module('whackamoleApp')
 
     $scope.startGame = function(gameDuration){
     	$scope.gameStarted=true;
+    	if ($scope.alerts.length > 0) {
+    		$scope.closeAlert();
+    	}
+    	$scope.alerts.push({ type: 'success', msg: 'Game started! Score to beat: ' +  $scope.bestScore});
+    
     	// https://stackoverflow.com/questions/21364480/in-angular-how-to-use-cancel-an-interval-on-user-events-like-page-change
     	$scope.popUpInterval = $interval(function(){
     		$scope.targettedSquares = [];
@@ -134,6 +142,12 @@ angular.module('whackamoleApp')
     		$interval.cancel($scope.popUpInterval);
     		$scope.targettedSquareIdx = null;
     		$scope.calculateBestScore();
+    		$scope.closeAlert();
+    		if ($scope.score < $scope.bestScore) {
+    			$scope.alerts.push({ type: 'danger', msg: 'It looks like you didn\'t beat your old high score.   Try again.  You need to get more than ' +  $scope.bestScore + ' points.'});
+    		} else {
+    			$scope.alerts.push({ type: 'success', msg: 'New high score!  Your new record is ' +  $scope.bestScore + ' points.'});
+    		}
     		$scope.gameStarted=false;
     		$scope.score = 0;
     	}, gameDuration);
