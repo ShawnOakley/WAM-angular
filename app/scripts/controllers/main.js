@@ -19,6 +19,10 @@ angular.module('whackamoleApp')
     { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
   ];
 
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  };
+
   	$scope.cancelGame = function(){
 		$interval.cancel($scope.popUpInterval);
 		$scope.targettedSquareIdx = null;

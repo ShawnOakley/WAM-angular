@@ -3,6 +3,7 @@
 
 <!-- Gameflow related images -->
 <!-- ng-click checks for gameStarted boolean on scope to disable click reactions if game isn't running -->
+<!-- https://stackoverflow.com/questions/28575962/ng-disabled-of-image-in-angularjs -->
 <img ng-if="cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/poof.jpg"></img>
 <img ng-if="!cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/circular-meadow.jpg"></img>
 <img ng-if="cell.displayingMole && !cell.transitioning && !cell.whacked" ng-click="!gameStarted || handleWhack()" src="images/mole.png"</img>
