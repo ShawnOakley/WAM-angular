@@ -8,10 +8,19 @@
  * Controller of the whackamoleApp
  */
 angular.module('whackamoleApp')
-  .controller('MainCtrl', ['$scope','$interval','$timeout',  function($scope, $interval, $timeout) {
+  .controller('MainCtrl', ['$scope','$interval','$timeout', '_',  function($scope, $interval, $timeout, _) {
 
   	$scope.score=0;
   	$scope.bestScore = 0;
+  	$scope.gameStarted=false;
+
+  	$scope.cancelGame = function(){
+		$interval.cancel($scope.popUpInterval);
+		$scope.targettedSquareIdx = null;
+		$scope.calculateBestScore();
+		$scope.gameStarted=false;
+		$scope.score = 0;
+  	};
 
   	$scope.calculateBestScore = function(){
   		if ($scope.score > $scope.bestScore) {
@@ -21,7 +30,7 @@ angular.module('whackamoleApp')
 
   	$scope.clearBestScore = function(){
   		$scope.bestScore = 0;
-  	}
+  	};
 
  	$scope.createSquare = function(position){
 		var gridSquare = {};
@@ -58,20 +67,50 @@ angular.module('whackamoleApp')
 	  return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
+	// Removes selected index so there are no duplicate squares selected
+	function removeSelectedIndex(){
+		var targetArray = [];
+		for (var i=0; i<9;i++) {
+			targetArray.push(i);
+		}
+		return _.filter(targetArray, function(idx){
+			return idx !== $scope.targettedSquareIdx;
+		});
+	}
+
+	function generateSecondTargetedIndex(possibleTargets){
+		var finalIndex = possibleTargets.length - 1;
+		var randomIdx = $scope.getRandomIntInclusive(0,finalIndex);
+		return possibleTargets[randomIdx];
+	}
+
     $scope.startGame = function(gameDuration){
+    	$scope.gameStarted=true;
     	// https://stackoverflow.com/questions/21364480/in-angular-how-to-use-cancel-an-interval-on-user-events-like-page-change
-    	var popUpInterval = $interval(function(){
+    	$scope.popUpInterval = $interval(function(){
+    		$scope.targettedSquares = [];
     		$scope.targettedSquareIdx = $scope.getRandomIntInclusive(0,8);
+    		$scope.targettedSquares.push($scope.targettedSquareIdx);
+    		var possibleSecondTargets = removeSelectedIndex($scope.targettedSquareIdx);
+    		var secondTarget = generateSecondTargetedIndex(possibleSecondTargets);
+    		$scope.targettedSquares.push(secondTarget);
+
     		$scope.grid[$scope.targettedSquareIdx].transitioning = true;
     		// Need to catch the timeouts on the scope to cancel it in case of a successful hit
     		$scope.moleDisplayTimeout = $timeout(function(){
-    			$scope.grid[$scope.targettedSquareIdx].transitioning = false;
-    			$scope.grid[$scope.targettedSquareIdx].displayingMole = true;
+    			_.each($scope.targettedSquares, function(squareIdx){
+    				$scope.grid[squareIdx].transitioning = false;
+	    			$scope.grid[squareIdx].displayingMole = true;
+    			});
     			$scope.moleDisplayTimeout = $timeout(function(){
-    				$scope.grid[$scope.targettedSquareIdx].displayingMole = false;
-    				$scope.grid[$scope.targettedSquareIdx].transitioning = true;
+    				_.each($scope.targettedSquares, function(squareIdx){
+    					$scope.grid[squareIdx].displayingMole = false;
+	    				$scope.grid[squareIdx].transitioning = true;
+    				});
     				$scope.moleDisplayTimeout = $timeout(function(){
-    					$scope.grid[$scope.targettedSquareIdx].transitioning = false;
+    					_.each($scope.targettedSquares, function(squareIdx){
+	    					$scope.grid[squareIdx].transitioning = false;
+    					});
     				}, 250);
     			},500);
     		},250);
@@ -82,9 +121,10 @@ angular.module('whackamoleApp')
     	}, 1000);
 
     	$timeout(function(){
-    		$interval.cancel(popUpInterval);
+    		$interval.cancel($scope.popUpInterval);
     		$scope.targettedSquareIdx = null;
     		$scope.calculateBestScore();
+    		$scope.gameStarted=false;
     		$scope.score = 0;
     	}, gameDuration);
     };
