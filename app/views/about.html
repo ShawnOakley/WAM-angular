@@ -1,1 +1,13 @@
-<p>This is the about view.</p>
+<h3>Background</h3>
+<div>This app uses Grunt as a Task Runner.  </div>
+<h3>Known Issues</h3>
+<ul>
+	<li>The displayed graphics are bound to each grid square object's booleans via ng-if statements.  Therefore, if you successfully click on a mole right before the timeout is called, it may display an 'X' even if it was successful hit.  This is because the moleDisplayed boolean and whacked boolean may only be simultaneously true for a couple of milliseconds -- long enough to register the point, but too quick for the 'wham' graphic to be consciously seen by the user (even if it was actually displayed).</li>
+	<li>Score alerts may fire more than once when a game ends.  I believe this has something to do with timeouts not being properly cancelled at some point in the end game processes.</li>
+</ul>
+<h3>Ideas for Further Improvements</h3>
+<ul>
+	<li>Although I've incorporated Angular Material in some places, given more time I would try to use Google's Material Design throughout the app.</li>
+	<li>I would abstract out the grid square creation to an Angular factory.</li>
+	<li>I would abstract out the callback closures to a Timer service.</li>
+</ul>
