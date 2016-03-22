@@ -12,7 +12,7 @@ Requires 'compass' gem.  Run 'gem install compass' if not already installed or r
 
 If there are any karma-related errors, run 'npm install karma  --save-dev'.
 
-Run `grunt build` for building and `grunt serve` for preview.
+Run `grunt build` for building and `grunt serve` for preview.  The app should be available at http://localhost:9000/#/
 
 ## Testing
 
