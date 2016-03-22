@@ -1,9 +1,13 @@
 <h3>Background</h3>
-<div>This app uses Grunt as a Task Runner.  </div>
+<div>This single-page app uses Angular 1.4 for the game and display logic.  The styling is mostly Bootstrap and CSS3, with small components using Angular Material (the Angular implementation of Google's Material Design standard).  It uses Grunt (v. 0.4.5) as a task runner to preprocess and serve the app. 
+To run the app, run 'grunt build' from root, then 'grunt serve'.  It has been tested on  Google Chrome (v. 49.0.2623.87) running on Yosemite (v. 10.10.3) and Ubuntu (v. 14.04).
+It is also available at https://github.com/ShawnOakley/WAM-angular
+</div>
 <h3>Known Issues</h3>
 <ul>
 	<li>The displayed graphics are bound to each grid square object's booleans via ng-if statements.  Therefore, if you successfully click on a mole right before the timeout is called, it may display an 'X' even if it was successful hit.  This is because the moleDisplayed boolean and whacked boolean may only be simultaneously true for a couple of milliseconds -- long enough to register the point, but too quick for the 'wham' graphic to be consciously seen by the user (even if it was actually displayed).</li>
 	<li>Score alerts may fire more than once when a game ends.  I believe this has something to do with timeouts not being properly cancelled at some point in the end game processes.</li>
+	<li>On-hover behavior needs to be corrected on the tabs.</li>
 </ul>
 <h3>Ideas for Further Improvements</h3>
 <ul>

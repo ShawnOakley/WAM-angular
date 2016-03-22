@@ -1,11 +1,18 @@
 # whackamole
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
+Available at https://github.com/ShawnOakley/WAM-angular
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `npm install` to install node dependencies from package.json.
+
+Run 'bower install' to install bower libraries.
+
+Requires 'compass' gem.  Run 'gem install compass' if not already installed or receive a compass-related error.
+
+If there are any karma-related errors, run 'npm install karma  --save-dev'.
+
+Run `grunt build` for building and `grunt serve` for preview.
 
 ## Testing
 
